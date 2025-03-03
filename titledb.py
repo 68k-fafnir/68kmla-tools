@@ -31,9 +31,9 @@ def save_titles(url, latest_post_id):
             print("fail to read: " + str(threadid))   
 
         elif 'log in' in human_title.lower():
-            human_title = 'ERROR'
-            url_title = 'ERROR'
-            web_title = 'ERROR'
+            human_title = 'LOGIN'
+            url_title = 'LOGIN'
+            web_title = 'LOGIN'
             print("login protected: " + str(threadid))
         else:
             # the title that's in the url
