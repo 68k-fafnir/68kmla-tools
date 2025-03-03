@@ -7,6 +7,10 @@ db_path = Path('titles.csv')
 FORUM_URL = '68kmla.org'
 LATEST_POST = 49471
 
+read_sucesses = 0
+read_fails = 0
+read_logins = 0
+
 def save_titles(url, latest_post_id):
     if db_path.is_file():
         return "Error: db file already exists. please delete it, and run again"
@@ -28,18 +32,21 @@ def save_titles(url, latest_post_id):
             human_title = 'ERROR'
             url_title = 'ERROR'
             web_title = 'ERROR'
-            print("fail to read: " + str(threadid))   
+            read_fails += 1
+            print("fail to read: " + str(threadid))
 
         elif 'log in' in human_title.lower():
             human_title = 'LOGIN'
             url_title = 'LOGIN'
             web_title = 'LOGIN'
+            read_logins += 1
             print("login protected: " + str(threadid))
         else:
             # the title that's in the url
             url_title = r.text.split('content="https://68kmla.org/bb/index.php?threads/')[1].split('.')[0]
             # the title of the tab
             web_title = r.text.split('<title>')[1].split('</title>')[0]
+            read_sucesses += 1
             print("sucess read: " + str(threadid))
         
         with open(db_path, 'a', newline='') as dbfile:
@@ -50,3 +57,6 @@ def save_titles(url, latest_post_id):
 
 
 print(save_titles(FORUM_URL, LATEST_POST))
+print(str(read_sucesses) + " sucessful reads")
+print(str(read_logins) + " threads that require login")
+print(str(read_fails) + " failed reads")
