@@ -17,26 +17,36 @@ def save_titles(url, latest_post_id):
     db = open(db_path, "x")
     db.close()
 
-    db = open(db_path, "w", newline='')
-    dbwriter = csv.writer(db, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-
     for threadid in range(1, latest_post_id+1):
-        thread_url = base_path + int(threadid)
+        thread_url = base_path + str(threadid)
+
         r = requests.get(thread_url) # TODO: auth
         # the actual thread title. also, don't parse html like this
         human_title = r.text.split('<h1 class="p-title-value">')[1].split('</h1>')[0]
+
         if human_title == "Oops! We ran into some problems. | 68kMLA":
-            print("fail to read: " + str(threadid))
-            dbwriter.writerow([str(threadid), 'ERROR', 'ERROR', 'ERROR'])
+            human_title = 'ERROR'
+            url_title = 'ERROR'
+            web_title = 'ERROR'
+            print("fail to read: " + str(threadid))   
+
+        elif 'log in' in human_title.lower():
+            human_title = 'ERROR'
+            url_title = 'ERROR'
+            web_title = 'ERROR'
+            print("login protected: " + str(threadid))
         else:
             # the title that's in the url
             url_title = r.text.split('content="https://68kmla.org/bb/index.php?threads/')[1].split('.')[0]
             # the title of the tab
             web_title = r.text.split('<title>')[1].split('</title>')[0]
-
             print("sucess read: " + str(threadid))
-            dbwriter.writerow([str(threadid), url_title, human_title, web_title])
-
         
+        with open(db_path, 'a', newline='') as dbfile:
+            writer = csv.writer(dbfile)
+            writer.writerow([str(threadid), url_title, human_title, web_title])
+
+    print("done")
+
 
 print(save_titles(FORUM_URL, LATEST_POST))
