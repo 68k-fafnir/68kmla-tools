@@ -6,12 +6,13 @@ db_path = Path('titles.csv')
 
 FORUM_URL = '68kmla.org'
 LATEST_POST = 49471
+START_POST = 1
 
 read_sucesses = 0
 read_fails = 0
 read_logins = 0
 
-def save_titles(url, latest_post_id):
+def save_titles(url, start_post_id, latest_post_id):
     if db_path.is_file():
         return "Error: db file already exists. please delete it, and run again"
 
@@ -21,7 +22,7 @@ def save_titles(url, latest_post_id):
     db = open(db_path, "x")
     db.close()
 
-    for threadid in range(1, latest_post_id+1):
+    for threadid in range(start_post_id, latest_post_id+1):
         thread_url = base_path + str(threadid)
 
         r = requests.get(thread_url) # TODO: auth
@@ -56,7 +57,7 @@ def save_titles(url, latest_post_id):
     print("done")
 
 
-print(save_titles(FORUM_URL, LATEST_POST))
+print(save_titles(FORUM_URL, START_POST, LATEST_POST))
 print(str(read_sucesses) + " sucessful reads")
 print(str(read_logins) + " threads that require login")
 print(str(read_fails) + " failed reads")
