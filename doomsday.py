@@ -1,8 +1,8 @@
 import requests
 
 FORUM_URL = '68kmla.org'
-BIG_NUMBER = 100000  #this should be larger than the total number of posts
 START_POST = 1
+BIG_NUMBER = 100000  #this should be larger than the total number of posts
 
 def doomsday_prep(url, start_post_id, latest_post_id): 
     read_logins = 0
