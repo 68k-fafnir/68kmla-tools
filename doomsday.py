@@ -10,7 +10,7 @@ def doomsday_prep(url, start_post_id, latest_post_id):
     read_goods = 0
     errors_in_a_row = 0
 
-    base_path = "https://" + url + "/bb/index.php/threads?foo."
+    base_path = "https://" + url + "/bb/index.php?threads/foo."
     for threadid in range(start_post_id, latest_post_id+1):
         thread_url = base_path + str(threadid)
 
@@ -19,6 +19,10 @@ def doomsday_prep(url, start_post_id, latest_post_id):
         human_title = r.text.split('<h1 class="p-title-value">')[-1].split('</h1>')[0]
         # tab title can show 404 message
         tab_title = r.text.split('<title>')[1].split('</title>')[0]
+
+        f = open("threads/"+str(threadid)+".html", "x")
+        f.write(r.text)
+        f.close
 
         if '404' in tab_title:
             fail_404s += 1
