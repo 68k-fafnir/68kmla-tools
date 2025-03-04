@@ -15,10 +15,13 @@ def doomsday_prep(url, start_post_id, latest_post_id):
         thread_url = base_path + str(threadid)
 
         r = requests.get(thread_url) # TODO: auth
+        print(r.text)
         # the actual thread title. use this to determine when we've read every page. also, don't parse html like this
-        human_title = r.text.split('<h1 class="p-title-value">')[1].split('</h1>')[0]
+        human_title = r.text.split('<h1 class="p-title-value">')[-1].split('</h1>')[0]
+        # tab title can show 404 message
+        tab_title = r.text.split('<title>')[1].split('</title>')[0]
 
-        if human_title.lower == "oops! we ran into some problems. | 68kmla":
+        if human_title.lower == "oops! we ran into some problems. | 68kmla" or tab_title.lower == '404 not found':
             read_fails += 1
             errors_in_a_row += 1
             print("fail to read: " + str(threadid))
