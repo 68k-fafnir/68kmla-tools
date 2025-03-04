@@ -25,13 +25,13 @@ def doomsday_prep(url, start_post_id, latest_post_id):
             errors_in_a_row += 1
             print("404: " + str(threadid))
             if errors_in_a_row >= 10:
-                return("10 failed reads in a row. Either we've read every thread, the site is down, or I broke the code (hint: it's probably 3)\n\n"+str(read_goods+read_fails-errors_in_a_row)+" total threads\n"+str(read_goods)+" sucessful reads\n"+str(read_fails)+" failed reads\n"+str(fail_404s)+" 404s")
+                return("10 failed reads in a row. Either we've read every thread, the site is down, or I broke the code (hint: it's probably 3)\n\n"+str(read_goods+read_fails+fail_404s)+" total threads\n"+str(read_goods)+" sucessful reads\n"+str(read_fails)+" failed reads\n"+str(fail_404s)+" 404s")
         elif human_title.lower == "oops! we ran into some problems. | 68kmla":
             read_fails += 1
             errors_in_a_row += 1
             print("fail to read: " + str(threadid))
             if errors_in_a_row >= 10:
-                return("10 failed reads in a row. Either we've read every thread, the site is down, or I broke the code (hint: it's probably 3)\n\n"+str(read_goods+read_fails-errors_in_a_row)+" total threads\n" + str(read_goods)+" sucessful reads\n" + str(read_fails)+" failed reads")
+                return("10 failed reads in a row. Either we've read every thread, the site is down, or I broke the code (hint: it's probably 3)\n\n"+str(read_goods+read_fails+fail_404s)+" total threads\n"+str(read_goods)+" sucessful reads\n" + str(read_fails)+" failed reads\n"+str(fail_404s)+" 404s")
         else:
             read_goods += 1
             errors_in_a_row = 0
