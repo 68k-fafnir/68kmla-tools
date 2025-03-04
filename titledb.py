@@ -65,6 +65,7 @@ def save_titles(url, start_post_id, latest_post_id):
 
 
 print(save_titles(FORUM_URL, START_POST, BIG_NUMBER))
+print(str(read_sucesses + read_logins + read_fails - errors_in_a_row) + " total threads")
 print(str(read_sucesses) + " sucessful reads")
 print(str(read_logins) + " threads that require login")
 print(str(read_fails) + " failed reads")
