@@ -5,7 +5,7 @@ import requests
 db_path = Path('titles.csv')
 
 FORUM_URL = '68kmla.org'
-LATEST_POST = 49471
+BIG_NUMBER = 100000  #this should be larger than the total number of posts
 START_POST = 1
 
 read_sucesses = 0
@@ -64,7 +64,7 @@ def save_titles(url, start_post_id, latest_post_id):
     print("done")
 
 
-print(save_titles(FORUM_URL, START_POST, LATEST_POST))
+print(save_titles(FORUM_URL, START_POST, BIG_NUMBER))
 print(str(read_sucesses) + " sucessful reads")
 print(str(read_logins) + " threads that require login")
 print(str(read_fails) + " failed reads")
