@@ -38,7 +38,7 @@ def save_titles(url, start_post_id, latest_post_id):
             errors_in_a_row += 1
             print("fail to read: " + str(threadid))
             if errors_in_a_row >= 10:
-                return("10 failed reads in a row. Either we've read every thread, or the site is down.")
+                return("10 failed reads in a row. Either we've read every thread, or the site is down.\n\n"+str(read_sucesses+read_logins+read_fails-errors_in_a_row)+" total threads\n" + str(read_sucesses)+" sucessful reads\n" + str(read_logins) + " threads that require login\n" + str(read_fails)+" failed reads")
 
         elif 'log in' in human_title.lower():
             human_title = 'LOGIN'
