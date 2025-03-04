@@ -8,13 +8,12 @@ FORUM_URL = '68kmla.org'
 BIG_NUMBER = 100000  #this should be larger than the total number of posts
 START_POST = 1
 
-read_sucesses = 0
-read_fails = 0
-read_logins = 0
-
-errors_in_a_row = 0
-
 def save_titles(url, start_post_id, latest_post_id):
+    read_sucesses = 0
+    read_fails = 0
+    read_logins = 0
+
+    errors_in_a_row = 0
     if db_path.is_file():
         return "Error: db file already exists. please delete it, and run again"
 
@@ -61,11 +60,7 @@ def save_titles(url, start_post_id, latest_post_id):
             writer = csv.writer(dbfile)
             writer.writerow([str(threadid), url_title, human_title, web_title])
 
-    print("done")
+    return "done!\n\n"+str(read_sucesses+read_logins+read_fails-errors_in_a_row)+" total threads\n" + str(read_sucesses)+" sucessful reads\n" + str(read_logins) + " threads that require login\n" + str(read_fails)+" failed reads"
 
 
 print(save_titles(FORUM_URL, START_POST, BIG_NUMBER))
-print(str(read_sucesses + read_logins + read_fails - errors_in_a_row) + " total threads")
-print(str(read_sucesses) + " sucessful reads")
-print(str(read_logins) + " threads that require login")
-print(str(read_fails) + " failed reads")
