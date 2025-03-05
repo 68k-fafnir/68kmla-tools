@@ -1,6 +1,6 @@
 # 68kmla-tools
 
-Some simple scripts I made to backup data from [the 68kmla forums](https://68kmla.org). These tools might work on other xenforo forums.
+Some simple scripts I made to backup data from [the 68kmla forums](https://68kmla.org). The scripts can be used with or without login creds to the forum. These tools might work on other xenforo forums.
 
 To run the scripts with auth use the following syntax:
 
