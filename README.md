@@ -1,5 +1,9 @@
 # 68kmla-tools
 
-titledb.py: create a database of all the post titles and their corresponding ids. I use it to find where posts are now after the crash. Doesn't work with threads that require an account (The Lounge, Trading Post, Trade Feedback). Should work on any xenforo forum idk.
+to run the scripts with auth use the following syntax:
+`python script.py xf_session xf_csrf xf_user`
+xf_session, xf_csrf, and xf_user can be found by looking at the network tab in devtools when you load a forum page. NEVER SHARE THESE THEY GIVE ACCESS TO YOUR ACCOUNT
 
-doomsday.py: download all the forum pages without processing them at all. Doesn't work with threads that require an account (The Lounge, Trading Post, Trade Feedback). Should work on any xenforo forum idk.
+titledb.py: create a database of all the post titles and their corresponding ids. I use it to find where posts are now after the crash. Should work on any xenforo forum idk.
+
+doomsday.py: download all the forum pages without processing them at all.Should work on any xenforo forum idk.

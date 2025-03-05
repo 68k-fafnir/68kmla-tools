@@ -1,12 +1,40 @@
 from pathlib import Path
 import csv
 import requests
+import sys
 
 db_path = Path('titles.csv')
 
 FORUM_URL = '68kmla.org'
 BIG_NUMBER = 100000  #this should be larger than the total number of posts
 START_POST = 1
+
+if len(sys.argv) == 4:
+    xf_session = sys.argv[1]
+    xf_csrf = sys.argv[2]
+    xf_user = sys.argv[3]
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.3',
+               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+               'Accept-Language': 'en-US,en;q=0.5',
+               'Accept-Encoding': 'gzip, deflate, br, zstd',
+               'Referer': 'https://68kmla.org/bb/index.php',
+               'DNT': '1',
+               'Sec-Fetch-Site': 'same-origin',
+               'Sec-Fetch-User': '?1',
+               'Connection': 'keep-alive',
+               'Cookie': 'SERVERID=vWeb1; xf_session='+xf_session+'; xf_csrf='+xf_csrf+'; xf_user='+xf_user
+               }
+else:
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.3',
+               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+               'Accept-Language': 'en-US,en;q=0.5',
+               'Accept-Encoding': 'gzip, deflate, br, zstd',
+               'Referer': 'https://68kmla.org/bb/index.php',
+               'DNT': '1',
+               'Sec-Fetch-Site': 'same-origin',
+               'Sec-Fetch-User': '?1',
+               'Connection': 'keep-alive',
+               }
 
 def save_titles(url, start_post_id, latest_post_id):
     read_sucesses = 0
@@ -26,7 +54,7 @@ def save_titles(url, start_post_id, latest_post_id):
     for threadid in range(start_post_id, latest_post_id+1):
         thread_url = base_path + str(threadid)
 
-        r = requests.get(thread_url) # TODO: auth
+        r = requests.get(thread_url, headers=headers)
         # the actual thread title. also, don't parse html like this
         human_title = r.text.split('<h1 class="p-title-value">')[1].split('</h1>')[0]
 
