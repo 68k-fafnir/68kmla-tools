@@ -10,4 +10,4 @@ xf_session, xf_csrf, and xf_user can be found by looking at the network tab in d
 
 titledb.py: Create a database of all the post titles and their corresponding ids. I use it to find where posts are now after the crash.
 
-doomsday.py: Download all the forum pages without processing them at all.
+doomsday.py: Download all the forum pages without processing them at all. If you get a `FileExistsError`, delete the files from the threads directory.
